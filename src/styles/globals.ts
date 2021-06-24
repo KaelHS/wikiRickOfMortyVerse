@@ -13,8 +13,9 @@ export const GlobalStyle = createGlobalStyle`
 
       --cyan-500: #61dafb;
       --yellow-500: #eba417;
-
+      --red-500: #E62E4D;
       --pink-500: #FF57B2;
+      --green-500: #33CC95;
     }
     
     * {

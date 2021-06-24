@@ -5,8 +5,11 @@ import { useParams } from 'react-router-dom';
 import { InfoContainer, ImgContainer, Container } from './styles';
 
 import colabImg from "../../assets/colaboradores.png"
+import { TiArrowLeftThick } from "react-icons/ti";
+import { RiFileEditFill } from 'react-icons/ri';
+import { FiTrash2 } from 'react-icons/fi';
 
-interface User {
+interface Employee {
     id: string;
     name: string;
     bornDate: string;
@@ -16,7 +19,7 @@ interface User {
 
 export function EmployeeInfo() {
 
-    const [ employee, setEmployee ] = useState<User>({} as User);
+    const [ employee, setEmployee ] = useState<Employee>({} as Employee);
 
     const { id }:any = useParams();
 
@@ -28,10 +31,32 @@ export function EmployeeInfo() {
     return(
         <Container>
         <InfoContainer>
-                <h1>{employee.name}</h1>
-                <p>Cargo: {employee.position}</p>
-                <p>Salário: {employee.salary}</p>
-                <span>{employee.bornDate}</span>
+            <div>
+                <h1><span>Nome: </span>{employee.name}</h1>
+                <p><span>Cargo: </span>{employee.position}</p>
+                <p><span>Salário: </span>{employee.salary}</p>
+                <p><span>Nascimento: </span>{employee.bornDate}</p>
+            </div>
+            <div className="buttonGroup"> 
+                <button
+                        type="button"
+                    >
+                        <TiArrowLeftThick />
+                        Voltar
+                    </button>
+                <button
+                        type="button"
+                    >
+                        <FiTrash2 />
+                        Excluir
+                    </button>
+                    <button
+                        type="button"
+                    >
+                        <RiFileEditFill />
+                        Editar
+                    </button>
+            </div>
         </InfoContainer>
         <ImgContainer>
             <img src={colabImg} alt="colaboradores" />
