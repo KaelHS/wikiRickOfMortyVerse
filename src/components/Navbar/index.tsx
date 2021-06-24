@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Header } from './styles';
  
 export function Navbar() {
@@ -6,7 +7,9 @@ export function Navbar() {
             <div>
                 <div>SEVEN</div>
                 <p>Olá, Fulano</p>
-                <button type="button">Adicionar Colaborador</button>
+                <Link to="/create">
+                    <button type="button">Adicionar Colaborador</button>
+                </Link>
             </div>
         </Header>
     );

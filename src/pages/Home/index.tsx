@@ -6,6 +6,7 @@ import { Container } from './styles'
 
 import { FiTrash2, FiSearch } from 'react-icons/fi';
 import { RiFileEditFill } from 'react-icons/ri';
+import { Link } from "react-router-dom";
 
 interface User {
   id: string;
@@ -43,30 +44,21 @@ export function Home() {
                 <tbody>
             { employees.map( employee => (
             <tr key={ employee.id }>
-                <td>
-                    <button
-                        type="button"
-                    >
-                        <FiSearch />
-                    </button>
-                </td>
+                <td><Link to={`/employees/${employee.id}`}><FiSearch /></Link></td>
                 <td>{employee.name}</td>
                 <td>{employee.position}</td>
                 <td>{employee.salary}</td>
                 <td>{employee.bornDate}</td>
-                <td> 
-                    <button
-                        type="button"
-                    >
+                <td>
+                    <Link to="">
+                        <RiFileEditFill />
+                        Editar
+                    </Link>
+                    <button>
                         <FiTrash2 />
                         Excluir
                     </button>
-                    <button
-                        type="button"
-                    >
-                        <RiFileEditFill />
-                        Editar
-                    </button>
+
                 </td>
             </tr>
             ))}

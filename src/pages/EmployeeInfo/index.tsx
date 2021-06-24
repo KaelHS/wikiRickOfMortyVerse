@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { api } from '../../services/api';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import { InfoContainer, ImgContainer, Container } from './styles';
 
@@ -38,12 +38,14 @@ export function EmployeeInfo() {
                 <p><span>Nascimento: </span>{employee.bornDate}</p>
             </div>
             <div className="buttonGroup"> 
+                <Link to="/">
                 <button
                         type="button"
                     >
                         <TiArrowLeftThick />
                         Voltar
                     </button>
+                </Link>
                 <button
                         type="button"
                     >
