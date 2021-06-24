@@ -6,7 +6,7 @@ export function Navbar() {
         <Header>
             <div>
                 <div>SEVEN</div>
-                <p>Olá, Fulano</p>
+                <p>Olá</p>
                 <Link to="/create">
                     <button type="button">Adicionar Colaborador</button>
                 </Link>

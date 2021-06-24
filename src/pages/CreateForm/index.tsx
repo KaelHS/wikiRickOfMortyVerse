@@ -1,51 +1,38 @@
-import { ChangeEvent, useEffect, useState } from 'react';
-import { api } from '../../services/api';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import { useState } from 'react';
+import { useHistory } from "react-router-dom";
+
 
 import { FormContainer, Container, ImgContainer } from './styles';
 
 import workTeamPNG from "../../assets/workteam.png"
 
 import { FormEvent } from 'react';
+import { useEmployees } from '../../hooks/useEmployees';
 
-interface Employee {
-    id: string;
-    name: string;
-    bornDate: string;
-    salary: number;
-    position: string;
-  }
 
 export function CreateForm() {
 
-    const [ employee, setEmployee ] = useState<Employee>({} as Employee);
-    const [ ename, setEname ] = useState('');
-    const [ ebornDate, setEbornDate ] = useState('');
-    const [ esalary, setEsalary ] = useState('');
-    const [ eposition, setEposition ] = useState('');
+    let history = useHistory();
 
-    const { id }:any = useParams();
+    const [ name, setName ] = useState('');
+    const [ bornDate, setBornDate ] = useState('');
+    const [ salary, setSalary ] = useState('');
+    const [ position, setPosition ] = useState('');
 
-    useEffect(() => {
-        api.get(`/employees/${id}`).then( ({ data }) => setEmployee(data.employees))
-    }, [])
+    const { createEmployee } = useEmployees();
 
-
-    function handleSubmit (event: FormEvent) {
+    async function handleSubmit (event: FormEvent) {
             event.preventDefault();
             
-            axios({
-                method: 'post',
-                url: '/api/contacts',
-                data: {
-                    ename: ename,
-                    ebornDate: ebornDate,
-                    esalary: esalary,
-                    eposition: eposition
+            await createEmployee({
+                name,
+                bornDate,
+                salary,
+                position
+            })
 
-                }
-            });
+            await history.push('/')
+
     }
 
     return(
@@ -55,26 +42,26 @@ export function CreateForm() {
                 id="name"
                 type="text"
                 placeholder="Name"
-                value={ename}
-                onChange={ ( { target }) => setEname(target.value) } />
+                value={name}
+                onChange={ ( { target }) => setName(target.value) } />
             <input
                 id="position"
                 type="text"
                 placeholder="Cargo"
-                value={eposition}
-                onChange={ ({ target }) => setEposition(target.value)} />
+                value={position}
+                onChange={ ({ target }) => setPosition(target.value)} />
             <input
                 id="salary"
                 type="text"
                 placeholder="Salario"
-                value={esalary}
-                onChange={ ({ target }) => setEsalary(target.value)} />
+                value={salary}
+                onChange={ ({ target }) => setSalary(target.value)} />
             <input  
                 id="bornDate"
                 type="date"
                 placeholder="Nascimento"
-                value=""
-                onChange={ ({ target })=> setEbornDate(target.value)} />
+                value={bornDate}
+                onChange={ ({ target })=> setBornDate(target.value)} />
             <button
                 type="submit"
             > Cadastrar</button>

@@ -14,8 +14,14 @@ export const Header = styled.header`
             background: var(--yellow-500);
             border: none;
             padding: 1rem;
+            font-size: 1rem;
+            font-weight:bold;
             border-radius: 0.25rem;
+            transition: filter 0.2s;
 
+            :hover {
+                filter: brightness(0.8);
+            }
         }
     }
 `;

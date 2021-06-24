@@ -1,11 +1,13 @@
+import React from 'react';
 import { createContext, ReactNode, useEffect, useState, useContext } from 'react';
 import { api } from '../services/api';
+import { toast } from 'react-toastify';
 
 interface Employee {
     id: string;
     name: string;
     bornDate: string;
-    salary: number;
+    salary: string;
     position: string;
   }
 
@@ -16,37 +18,82 @@ interface EmployeesProviderProps {
 }
 
 interface EmployeeContextData {
-    employees: Array<Employee>;
-    createEmployee: (transaction: EmployeeInput ) => Promise<void>;
-}
+    loadedEmployees: Array<Employee>;
+    createEmployee: (employee: EmployeeInput ) => Promise<void>;
+    deleteEmployee: (employeeId: string) => Promise<void>;
+    getEmployees: ( ) => Promise<void>
 
+}
 
 export const EmployeeContext = createContext<EmployeeContextData>({} as EmployeeContextData);
 
 export function EmployeeProvider({ children }: EmployeesProviderProps ) {
 
-    const [ employees, setEmployees ] = useState<Employee[]>([]);
+    const [ loadedEmployees, setLoadedEmployees ] = useState<Employee[]>([]);
 
     useEffect( () => {
-      api.get('/employees').then( ({ data }) => setEmployees(data.employees));
-    }, []);
+        getEmployees();
+        
+    }, [])
+
+    async function getEmployees() {
+
+        const response = await api.get('/employees', { 
+            params: {
+                _sort: 'id',
+                _order: 'desc',
+              }
+            },
+        );
+           
+           const dataResponse = response.data.employees.map( (employee: Employee) => ({
+            id: employee.id,
+            name: employee.name,
+            bornDate:  new Intl.DateTimeFormat('pt-BR').format(new Date(employee.bornDate)),
+            salary: new Intl.NumberFormat('pt-BR', { style:'currency', currency: 'BRL'}).format(Number(employee.salary)),
+            position: employee.position
+    
+          }))
+
+          setLoadedEmployees(dataResponse);
+
+        };
 
     async function createEmployee ( employeeInput: EmployeeInput) {
-        const response = await api.post('/employees', {
+        await api.post('/employees', {
             ...employeeInput,
-            // id: 
         } )
-        
-        const { employee } = response.data;
 
-        setEmployees([
-            ...employees,
-            employee,
-        ])
+
+        getEmployees();
     }
+
+      async function deleteEmployee (employeeId: string) {
+
+        try {
+
+             await api.delete(`/employees/${employeeId}`);
+
+             await getEmployees();
+
+        } catch {
+            toast.error('Erro na remoção do colaborador');
+        }
+    }
+
+    const editEmployee = async ( employeeId : string) => {
+        try {
+    
+          const updateResponse = await api.put(`/employees/${employeeId}`)
+
+
+        } catch {
+          toast.error('Erro na edição do colaborador');
+        }
+      };
   
     return(
-        <EmployeeContext.Provider value={{employees, createEmployee}}>
+        <EmployeeContext.Provider value={{loadedEmployees, createEmployee, deleteEmployee, getEmployees }}>
         { children }
         </EmployeeContext.Provider>
     );

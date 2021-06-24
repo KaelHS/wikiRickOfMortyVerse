@@ -8,6 +8,7 @@ import colabImg from "../../assets/colaboradores.png"
 import { TiArrowLeftThick } from "react-icons/ti";
 import { RiFileEditFill } from 'react-icons/ri';
 import { FiTrash2 } from 'react-icons/fi';
+import { useEmployees } from '../../hooks/useEmployees';
 
 interface Employee {
     id: string;
@@ -19,12 +20,32 @@ interface Employee {
 
 export function EmployeeInfo() {
 
-    const [ employee, setEmployee ] = useState<Employee>({} as Employee);
+    const [ employee, setEmployee ] = useState({} as any);
 
     const { id }:any = useParams();
 
+    const { deleteEmployee } = useEmployees()
+
     useEffect(() => {
-        api.get(`/employees/${id}`).then( ({ data }) => setEmployee(data.employees))
+
+        async function getEmployee() {
+            const {data} = await api.get(`/employees/${id}`);
+
+            const dataFormatted = {
+                id: data.employees.id,
+                name: data.employees.name,
+                bornDate:  new Intl.DateTimeFormat('pt-BR').format(new Date(data.employees.bornDate)),
+                salary: new Intl.NumberFormat('pt-BR', { style:'currency', currency: 'BRL'}).format(Number(data.employees.salary)),
+                position: data.employees.position
+        
+            }
+
+            setEmployee(dataFormatted);
+
+        }
+
+        getEmployee();
+        
     }, [])
 
 
@@ -40,23 +61,24 @@ export function EmployeeInfo() {
             <div className="buttonGroup"> 
                 <Link to="/">
                 <button
+                        className="backButton"
                         type="button"
                     >
                         <TiArrowLeftThick />
                         Voltar
                     </button>
                 </Link>
-                <button
-                        type="button"
-                    >
-                        <FiTrash2 />
-                        Excluir
-                    </button>
-                    <button
-                        type="button"
-                    >
-                        <RiFileEditFill />
+                <Link to={`/edit/${employee.id}`}>
+                    <button className="editButton">
+                        <RiFileEditFill size="1rem" color="var(--yellow-500)"/>
                         Editar
+                    </button>
+                    </Link>
+                    <button
+                      className="deleteButton" 
+                      onClick={() => deleteEmployee(employee.id)}>
+                        <FiTrash2  size="1rem" color="var(--red-500)"/>
+                        Excluir
                     </button>
             </div>
         </InfoContainer>
