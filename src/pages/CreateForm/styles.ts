@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+
+
 export const Container = styled.div`
     margin: 2rem;
     display: flex;
@@ -9,7 +11,7 @@ export const Container = styled.div`
 
 export const FormContainer = styled.form`
     max-width: 500px;
-    padding: 3rem;
+    padding: 2rem;
     
     input{
         font-size:1rem;
@@ -21,10 +23,12 @@ export const FormContainer = styled.form`
         font-size: 1.25rem;
         padding: 0.5rem;
         width: 100%;
+        height: 3rem;
         margin: 0.5rem;
         border: none;
         border-radius: 0.25rem;
         background: var(--green-500);
+        
         
     }
 `;

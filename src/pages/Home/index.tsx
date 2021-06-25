@@ -36,8 +36,8 @@ export function Home() {
             <tr key={ employee.id }>
                 <td>
                   <Link to={`/employees/${employee.id}`}>
-                    <button>
-                        <FiSearch size="1rem" color="var(--pink-500)"/>
+                    <button className="searchButton">
+                        <FiSearch size="1rem" color="#fff"/>
                     </button>
                     </Link></td>
                 <td>{employee.name}</td>
@@ -45,17 +45,17 @@ export function Home() {
                 <td>{employee.salary}</td>
                 <td>{employee.bornDate}</td>
                 <td>
-                    <Link to="/">
-                    <button className="editButton">
-                        <RiFileEditFill size="1rem" color="var(--yellow-500)"/>
-                        Editar
+                    <Link to={`/edit/${employee.id}`}>
+                    <button 
+                        className="editButton"
+                    >
+                        <RiFileEditFill size="1rem" color="#fff"/>
                     </button>
                     </Link>
                     <button
                       className="deleteButton" 
                       onClick={() => deleteEmployee(employee.id)}>
-                        <FiTrash2  size="1rem" color="var(--red-500)"/>
-                        Excluir
+                        <FiTrash2  size="1rem" color="#fff"/>
                     </button>
 
                 </td>

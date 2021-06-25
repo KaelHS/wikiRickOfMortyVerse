@@ -1,14 +1,17 @@
 import { useEffect, useState } from 'react';
 import { api } from '../../services/api';
 import { Link, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 import { InfoContainer, ImgContainer, Container } from './styles';
 
 import colabImg from "../../assets/colaboradores.png"
-import { TiArrowLeftThick } from "react-icons/ti";
 import { RiFileEditFill } from 'react-icons/ri';
 import { FiTrash2 } from 'react-icons/fi';
 import { useEmployees } from '../../hooks/useEmployees';
+import { Header } from '../../components/Header';
 
 interface Employee {
     id: string;
@@ -24,7 +27,30 @@ export function EmployeeInfo() {
 
     const { id }:any = useParams();
 
-    const { deleteEmployee } = useEmployees()
+    let history = useHistory();
+
+    const { deleteEmployee } = useEmployees();
+
+    const customAlert = withReactContent(Swal);
+
+    function handleDelete () {
+
+        deleteEmployee(employee.id);
+
+        customAlert.fire({
+            icon: 'success',
+            title: 'Colaborador Excluido',
+            text: '',
+            showConfirmButton: false,
+            timer: 1700,
+            background: 'var(--gray-100)'
+            })
+
+            setTimeout(() =>{
+                history.push('/')
+            }, 1800)
+        
+    }
 
     useEffect(() => {
 
@@ -50,6 +76,8 @@ export function EmployeeInfo() {
 
 
     return(
+        <>
+        <Header />
         <Container>
         <InfoContainer>
             <div>
@@ -59,26 +87,17 @@ export function EmployeeInfo() {
                 <p><span>Nascimento: </span>{employee.bornDate}</p>
             </div>
             <div className="buttonGroup"> 
-                <Link to="/">
-                <button
-                        className="backButton"
-                        type="button"
-                    >
-                        <TiArrowLeftThick />
-                        Voltar
-                    </button>
-                </Link>
                 <Link to={`/edit/${employee.id}`}>
                     <button className="editButton">
-                        <RiFileEditFill size="1rem" color="var(--yellow-500)"/>
-                        Editar
+                        <RiFileEditFill size="1rem" color="#fff"/>
+                        <p>Editar</p>
                     </button>
                     </Link>
                     <button
                       className="deleteButton" 
-                      onClick={() => deleteEmployee(employee.id)}>
-                        <FiTrash2  size="1rem" color="var(--red-500)"/>
-                        Excluir
+                      onClick={handleDelete}>
+                        <FiTrash2  size="1rem" color="#fff"/>
+                        <p>Excluir</p>
                     </button>
             </div>
         </InfoContainer>
@@ -86,5 +105,6 @@ export function EmployeeInfo() {
             <img src={colabImg} alt="colaboradores" />
         </ImgContainer>
         </Container>
+        </>
     );
 }

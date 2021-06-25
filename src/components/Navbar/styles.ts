@@ -11,7 +11,8 @@ export const Header = styled.header`
         justify-content: space-between;
 
         button { 
-            background: var(--yellow-500);
+            background: var(--green-500);
+            color: #fff;
             border: none;
             padding: 1rem;
             font-size: 1rem;

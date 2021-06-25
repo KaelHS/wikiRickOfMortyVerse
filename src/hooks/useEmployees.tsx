@@ -2,6 +2,8 @@ import React from 'react';
 import { createContext, ReactNode, useEffect, useState, useContext } from 'react';
 import { api } from '../services/api';
 import { toast } from 'react-toastify';
+import { useHistory } from 'react-router-dom';
+
 
 interface Employee {
     id: string;
@@ -30,6 +32,8 @@ export const EmployeeContext = createContext<EmployeeContextData>({} as Employee
 export function EmployeeProvider({ children }: EmployeesProviderProps ) {
 
     const [ loadedEmployees, setLoadedEmployees ] = useState<Employee[]>([]);
+
+    let history = useHistory();
 
     useEffect( () => {
         getEmployees();
@@ -75,6 +79,9 @@ export function EmployeeProvider({ children }: EmployeesProviderProps ) {
              await api.delete(`/employees/${employeeId}`);
 
              await getEmployees();
+
+             
+
 
         } catch {
             toast.error('Erro na remoção do colaborador');

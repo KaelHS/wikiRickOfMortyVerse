@@ -9,9 +9,8 @@ export const Container = styled.div`
             color: var(--yellow-500);
             background: var(--gray-700);
             text-transform: uppercase;
-            font-weight: bold;
             text-align: left;
-            padding: 1rem 2rem;
+            padding: 1rem 1rem;
             line-height: 1.5rem;
 
             &:last-child {
@@ -19,7 +18,7 @@ export const Container = styled.div`
             }
         }
         td {
-            padding: 1rem 2rem;
+            padding: 1rem 1rem;
             border: 0;
             /* background: var(--gray-300); */
             font-weight: 400;
@@ -28,27 +27,42 @@ export const Container = styled.div`
 
             button {
                 display: inline;
-                line-height:1.2rem;
-                font-size: 1rem;
                 margin: 0 1rem;
                 padding: 0.5rem;
                 border: none;
                 border-radius: 0.25rem;
-                background: transparent;
-                color: var(--gray-300);
+                transition: filter 0.2s;
 
                 &.deleteButton {
                     border: 1px solid var(--red-500);
+                    background: var(--red-500);
                 }
                 &.editButton {
                     border: 1px solid var(--yellow-500);
+                    background: var(--yellow-500);
+
+                }
+                &.searchButton {
+                    border: 1px solid var(--cyan-500);
+                    background: var(--cyan-500);
+
+                }
+
+                p {
+                    font-size: 1rem;
+                    margin-left: 0.25rem;
+                }
+
+                :hover {
+                    filter: brightness(0.8);
                 }
 
             }
-            
-            a {
-                    text-decoration:none;
-                }
+
+            &:last-child {
+                display: flex;
+                justify-content: center;
+            }
         }
 
         
