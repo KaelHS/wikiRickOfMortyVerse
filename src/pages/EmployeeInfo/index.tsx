@@ -60,7 +60,7 @@ export function EmployeeInfo() {
             const dataFormatted = {
                 id: data.employees.id,
                 name: data.employees.name,
-                bornDate:  new Intl.DateTimeFormat('pt-BR').format(new Date(data.employees.bornDate)),
+                bornDate:  new Intl.DateTimeFormat('pt-BR', {timeZone: 'UTC'}).format(new Date(data.employees.bornDate)),
                 salary: new Intl.NumberFormat('pt-BR', { style:'currency', currency: 'BRL'}).format(Number(data.employees.salary)),
                 position: data.employees.position
         

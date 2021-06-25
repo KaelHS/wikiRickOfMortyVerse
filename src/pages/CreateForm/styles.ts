@@ -14,6 +14,7 @@ export const FormContainer = styled.form`
     padding: 2rem;
     
     input{
+        outline-color: var(--cyan-500);
         font-size:1rem;
         width: 100%;
         padding: 1rem;
@@ -28,7 +29,11 @@ export const FormContainer = styled.form`
         border: none;
         border-radius: 0.25rem;
         background: var(--green-500);
-        
+        transition: filter 0.2s;
+
+        :hover {
+            filter: brightness(0.8);
+        }
         
     }
 `;

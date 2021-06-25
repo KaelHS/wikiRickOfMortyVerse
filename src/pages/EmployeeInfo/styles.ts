@@ -17,7 +17,7 @@ export const InfoContainer = styled.div`
     span {
         line-height: 3rem;
         font-size: 1.5rem;
-        color: var(--pink-500);
+        color: var(--cyan-500);
     }
     p {
         font-size: 1.5rem;

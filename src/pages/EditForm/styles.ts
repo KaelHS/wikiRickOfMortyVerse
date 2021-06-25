@@ -21,12 +21,12 @@ export const FormContainer = styled.form`
         line-height: 2rem;
         margin-left: 1rem;
         font-size: 1.25rem;
-        color: var(--yellow-500);
+        color: var(--cyan-500);
 
     }
     
     input{
-        outline-color: var(--yellow-500);
+        outline-color: var(--cyan-500);
         font-size:1rem;
         width: 100%;
         padding: 1rem;
@@ -41,7 +41,12 @@ export const FormContainer = styled.form`
         border: none;
         border-radius: 0.25rem;
         background: var(--green-500); 
+        transition: filter 0.2s;
 
+        :hover {
+            filter: brightness(0.8);
+        }
+        
     }
 `;
 

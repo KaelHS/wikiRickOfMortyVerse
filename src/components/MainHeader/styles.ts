@@ -25,4 +25,12 @@ export const Header = styled.header`
             }
         }
     }
+
+    div {
+        p{
+            font-family: 'Sacramento', cursive;
+            font-size: 2.5rem;
+            color: var(--cyan-500);
+        }
+    }
 `;

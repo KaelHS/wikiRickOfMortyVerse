@@ -1,9 +1,7 @@
 import React from 'react';
 import { createContext, ReactNode, useEffect, useState, useContext } from 'react';
 import { api } from '../services/api';
-import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
-
 
 interface Employee {
     id: string;
@@ -12,6 +10,7 @@ interface Employee {
     salary: string;
     position: string;
   }
+
 
 type EmployeeInput = Omit<Employee, 'id' >;
 
@@ -23,9 +22,12 @@ interface EmployeeContextData {
     loadedEmployees: Array<Employee>;
     createEmployee: (employee: EmployeeInput ) => Promise<void>;
     deleteEmployee: (employeeId: string) => Promise<void>;
-    getEmployees: ( ) => Promise<void>
+    getEmployees: ( ) => Promise<void>;
+    editEmployee: (employee: Employee) => Promise<void>;
 
 }
+
+
 
 export const EmployeeContext = createContext<EmployeeContextData>({} as EmployeeContextData);
 
@@ -53,7 +55,7 @@ export function EmployeeProvider({ children }: EmployeesProviderProps ) {
            const dataResponse = response.data.employees.map( (employee: Employee) => ({
             id: employee.id,
             name: employee.name,
-            bornDate:  new Intl.DateTimeFormat('pt-BR').format(new Date(employee.bornDate)),
+            bornDate:  new Intl.DateTimeFormat('pt-BR', {timeZone: 'UTC'}).format(new Date(employee.bornDate)),
             salary: new Intl.NumberFormat('pt-BR', { style:'currency', currency: 'BRL'}).format(Number(employee.salary)),
             position: employee.position
     
@@ -80,27 +82,32 @@ export function EmployeeProvider({ children }: EmployeesProviderProps ) {
 
              await getEmployees();
 
-             
-
-
-        } catch {
-            toast.error('Erro na remoção do colaborador');
+        } catch (err) {
+          console.log(err)
         }
     }
 
-    const editEmployee = async ( employeeId : string) => {
+    const editEmployee = async ( employee: Employee) => {
         try {
     
-          const updateResponse = await api.put(`/employees/${employeeId}`)
+          await api.put(`/employees/${employee.id}`, {
+            name: employee.name,
+            position: employee.position,
+            salary: employee.salary,
+            bornDate: employee.bornDate,
+
+          });
+          console.log("enviado")
+          getEmployees();
 
 
-        } catch {
-          toast.error('Erro na edição do colaborador');
+        } catch ( err ) {
+          console.log(err)
         }
       };
   
     return(
-        <EmployeeContext.Provider value={{loadedEmployees, createEmployee, deleteEmployee, getEmployees }}>
+        <EmployeeContext.Provider value={{loadedEmployees, createEmployee, deleteEmployee, getEmployees, editEmployee }}>
         { children }
         </EmployeeContext.Provider>
     );

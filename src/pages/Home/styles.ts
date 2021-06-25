@@ -2,11 +2,12 @@ import styled from "styled-components";
 
 export const Container = styled.div`
     margin-top: 2rem auto;
+
     table {
         width: 100%;
         border-spacing: 0 0.5rem;
         th {
-            color: var(--yellow-500);
+            color: var(--cyan-500);
             background: var(--gray-700);
             text-transform: uppercase;
             text-align: left;

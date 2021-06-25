@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
-import { Navbar } from "../../components/Navbar";
-
+import { MainHeader } from "../../components/MainHeader";
 
 import { Container } from './styles'
 
@@ -12,13 +10,11 @@ import { useEmployees } from "../../hooks/useEmployees";
 
 export function Home() {
 
-
-  const { loadedEmployees, deleteEmployee, getEmployees } = useEmployees();
-
+  const { loadedEmployees, deleteEmployee } = useEmployees();
 
   return (
     <>
-        <Navbar />
+        <MainHeader />
         <Container>
         <table>
                 <thead>

@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 
 import { FormContainer, Container, ImgContainer } from './styles';
@@ -12,23 +14,45 @@ import { Header } from '../../components/Header';
 
 export function EditForm() {
 
-    const [ ename, setEname ] = useState('');
+    const [ name, setEname ] = useState('');
     const [ bornDate, setBornDate ] = useState('');
-    const [ esalary, setEsalary ] = useState('');
-    const [ eposition, setEposition ] = useState('');
+    const [ salary, setEsalary ] = useState('');
+    const [ position, setEposition ] = useState('');
 
-    const { loadedEmployees } = useEmployees();
+    const { loadedEmployees, editEmployee } = useEmployees();
 
     const { id }:any = useParams();
+
+    let history = useHistory();
+    const customAlert = withReactContent(Swal);
 
     const selectedEmployee = loadedEmployees.find( eimployee => eimployee.id === id );
 
 
-    function handleSubmit (event: FormEvent) {
-            event.preventDefault();
-            
-        //edit
-    }
+    async function handleSubmit (event: FormEvent) {
+        event.preventDefault();
+        
+        await editEmployee({
+            id,
+            name,
+            bornDate,
+            salary,
+            position
+        })
+
+        customAlert.fire({
+            icon: 'success',
+            title: 'Colaborador alterado com sucesso',
+            showConfirmButton: false,
+            timer: 1700,
+            background: 'var(--gray-100)'
+            })
+
+            setTimeout(() =>{
+                history.push('/')
+            }, 1800)
+
+}
 
     return(
         <>
@@ -44,28 +68,28 @@ export function EditForm() {
                 id="name"
                 type="text"
                 placeholder="Name"
-                value={ename}
+                value={name}
                 onChange={ ( { target }) => setEname(target.value) } />
             <input
                 required
                 id="position"
                 type="text"
                 placeholder="Cargo"
-                value={eposition}
+                value={position}
                 onChange={ ({ target }) => setEposition(target.value)} />
             <input
                 required
                 id="salary"
                 type="text"
                 placeholder="Salario"
-                value={esalary}
+                value={salary}
                 onChange={ ({ target }) => setEsalary(target.value)} />
             <input  
                 required    
                 id="bornDate"
                 type="date"
                 placeholder="Nascimento"
-                value=""
+                value={bornDate}
                 onChange={ ({ target })=> setBornDate(target.value)} />
 
             <button>Confirmar</button>

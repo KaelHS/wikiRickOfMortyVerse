@@ -20,7 +20,7 @@ export function CreateForm() {
 
 
     const [ name, setName ] = useState('');
-    const [ bornDate, setBornDate ] = useState('');
+    const [ bornDate, setBornDate ] = useState('' as any);
     const [ salary, setSalary ] = useState('');
     const [ position, setPosition ] = useState('');
 
@@ -44,12 +44,9 @@ export function CreateForm() {
                 timer: 1700,
                 background: 'var(--gray-100)'
                 })
-    
                 setTimeout(() =>{
                     history.push('/')
                 }, 1800)
-
-
     }
 
     return(
@@ -84,7 +81,7 @@ export function CreateForm() {
                 type="date"
                 placeholder="Nascimento"
                 value={bornDate}
-                onChange={ ({ target })=> setBornDate(target.value)} />
+                onChange={ ({ target })=> setBornDate((target.value))} />
             <button
                 type="submit"
             > Cadastrar</button>

@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom';
 import { Header } from './styles';
  
-export function Navbar() {
+export function MainHeader() {
     return(
         <Header>
             <div>
-                <div>SEVEN</div>
-                <p>Olá</p>
+                <div>
+                    <p>Seja Bem Vindo(a)</p>
+                </div>
                 <Link to="/create">
                     <button type="button">Adicionar Colaborador</button>
                 </Link>
