@@ -1,14 +1,14 @@
-import { EmployeeProvider } from "./hooks/useEmployees";
+import { CharacterProvider } from "./hooks/useCharacter";
 import {Routes} from "./routes";
 import { GlobalStyle } from "./styles/globals";
 
 function App() {
   return (
     <>
-    <EmployeeProvider>
+    <CharacterProvider>
       <Routes />
       <GlobalStyle />
-    </EmployeeProvider>
+    </CharacterProvider>
     </>
   );
 }
