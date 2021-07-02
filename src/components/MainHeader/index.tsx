@@ -25,20 +25,20 @@ export function MainHeader() {
     
     return(
         <Header>
-            <div>
-                <div className="welcome">
-                    <GiEarthAmerica />
-                </div>
-                <div>
+            <div className="container">
+                <GiEarthAmerica size="2.5rem" color="var(--cyan-500)"/>
+                <form 
+                    className="searchGroup"
+                    onSubmit={handleSubmit}>
                     <input 
                         type="text"
                         value={searchCharacter}
                         onChange={handleChange}  />
                     <button
-                        type="button">
+                        type="submit">
                             <FiSearch size="1rem"/>
                     </button>
-                </div>
+                </form>
             </div>
         </Header>
     );

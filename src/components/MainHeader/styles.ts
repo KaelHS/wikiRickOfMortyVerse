@@ -1,18 +1,17 @@
 import styled from "styled-components";
 
 export const Header = styled.header`
-    display: flex;
-    justify-content: center;
-    width:100%;
     margin-bottom: 1rem;
-    padding: 1rem 2rem;
+    padding: 1.5rem 0;
     border-bottom: 1px solid var(--gray-300);
     background: var(--gray-900);
 
-    div {
+    .container {
+        padding: 0 1rem;
+        margin: 0 auto;
         display: flex;
         justify-content: space-between;
-        max-width: 1200px;
+        max-width: 800px;
 
         button { 
             background: var(--green-500);

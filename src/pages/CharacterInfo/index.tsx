@@ -10,9 +10,21 @@ import { InfoContainer, ImgContainer, Container } from './styles';
 import { Header } from '../../components/Header';
 
 
+interface Character { 
+    id: string;
+    name: string;
+    status: string;
+    species: string;
+    gender: string;
+    image?: string;
+    origin: {
+        name: string;
+    }
+  }
+
 export function CharacterInfo() {
 
-    const [ character, setCharacter ] = useState({} as any);
+    const [ character, setCharacter ] = useState<Character>({} as Character);
 
     const { id }:any = useParams();
 
@@ -42,9 +54,11 @@ export function CharacterInfo() {
         </ImgContainer>
         <InfoContainer>
             <div>
-                <h3>{character.name}</h3>
-                <p>{character.species}</p>
-                <p>{character.gender}</p>
+                <h3><span>Nome: </span>{character.name}</h3>
+                <p><span>Espécie: </span>{character.species}</p>
+                <p><span>Sexo: </span>{character.gender}</p>
+                <p><span>Status: </span>{character.status}</p>
+                <p><span>Origem: </span>{character.origin?.name}</p>
             </div>
         </InfoContainer>
 

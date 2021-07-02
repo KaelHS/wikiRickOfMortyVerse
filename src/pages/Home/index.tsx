@@ -23,8 +23,6 @@ export function Home() {
     const [ character, setCharacter] = useState();
     const { loadedCharacters } = useCharacter();
 
-
-
   console.log(loadedCharacters);
   return (
     <>
@@ -49,6 +47,14 @@ export function Home() {
                     </Link>
                 ))}
             </ul>
+            <div>
+                    <button
+                        type="button"
+                        >Anterior</button>
+                    <button
+                        type="button"
+                        >Próxima</button>
+            </div>
         </Container>
     </>
   );
