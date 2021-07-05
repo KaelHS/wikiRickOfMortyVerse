@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { api } from '../../services/api';
-import { Link, useParams } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
+import { useCharacter } from "../../hooks/useCharacter";
 
 import { InfoContainer, ImgContainer, Container } from './styles';
 
@@ -26,9 +27,9 @@ export function CharacterInfo() {
 
     const [ character, setCharacter ] = useState<Character>({} as Character);
 
-    const { id }:any = useParams();
+    const { addFavorite } = useCharacter();
 
-    let history = useHistory();
+    const { id }:any = useParams();
 
     useEffect(() => {
 
@@ -49,19 +50,24 @@ export function CharacterInfo() {
         <>
         <Header />
         <Container>
-        <ImgContainer>
-            <img src={character.image} alt={character.name} />
-        </ImgContainer>
-        <InfoContainer>
-            <div>
-                <h3><span>Nome: </span>{character.name}</h3>
-                <p><span>Espécie: </span>{character.species}</p>
-                <p><span>Sexo: </span>{character.gender}</p>
-                <p><span>Status: </span>{character.status}</p>
-                <p><span>Origem: </span>{character.origin?.name}</p>
-            </div>
-        </InfoContainer>
-
+            <ImgContainer>
+                <img src={character.image} alt={character.name} />
+            </ImgContainer>
+            <InfoContainer>
+                <div>
+                    <p><span>Nome: </span>{character.name}</p>
+                    <p><span>Espécie: </span>{character.species}</p>
+                    <p><span>Sexo: </span>{character.gender}</p>
+                    <p><span>Status: </span>{character.status}</p>
+                    <p><span>Origem: </span>{character.origin?.name}</p>
+                </div>
+                <div className="favoriteButton">
+                    <button
+                        onClick={() => addFavorite(character.id)}>
+                        <MdFavoriteBorder size="2rem" color="var(--pink-500)"/>
+                    </button>
+                </div>
+            </InfoContainer>
         </Container>
         </>
     );

@@ -47,11 +47,31 @@ export const Container = styled.div`
                 border: none;
             }
 
+            a {
+                position: absolute;              
+                bottom: 4rem;
+                right: 0.5rem;
+
+                button {
+                    padding: 0.5rem;
+                    border: none;
+                    background: var(--green-500);
+                    border-radius: 0.25rem;
+                    transition: filter 0.2s;
+
+                    :hover {
+                        cursor: pointer;
+                        filter: brightness(0.9);
+                    }
+
+                }
+            }
+
             :hover  {
                 text-shadow: 0 0 0.8em #00acee;
                 border: 2px solid #00acee;
                 transition: 0.5s;
-                cursor: pointer;
+                cursor: default;
                 
             }
         }

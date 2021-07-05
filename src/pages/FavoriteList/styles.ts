@@ -74,39 +74,4 @@ export const Container = styled.div`
             }
         }
     }
-
-    .paginationButtonsContainer {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-
-        button {
-            margin-bottom:1rem;
-            padding: 0.25rem 1rem;
-            font-size: 2rem;
-            color: white;
-            border-radius: 0.25rem;
-            border: none;
-            background-color: blue;
-            transition: filter 0.2s;
-
-            :first-child{
-            background: var(--yellow-500);
-            }
-
-            :hover {
-                filter: brightness(0.9);
-            }
-
-            &:disabled {
-            cursor: not-allowed;
-            opacity: 0.3;
-            filter: brightness(1)
-            }  
-
-
-        }
-        
-
-    }
 `;
