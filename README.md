@@ -1,21 +1,31 @@
-## Available Scripts
+♦ About
 
-In the project directory, you can run:
+It consists of a wikipedia about the characters from the Universe Rick and Morty
 
-### `npm i` or `yarn` 
+✨ Features
+◽ Search by character name;
+◽ List results; 
+◽ View specific character;
+◽ Add character to favorites list ❤️ ;
+◽ Remove character from favorites list;
+◽ List favorite characters;\
 
-This will install all dependencies needed.
 
-### `yarn start` or `npm start`
+Before starting 🏁, you need to have Git and Node installed.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+🏁 Starting
+# Clone this project
+$ git clone https://github.com/KaelHS/wikiRickOfMortyVerse.git
 
 
-### `yarn build` or `npm build`
+# Install dependencies
+$ yarn
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Run the project
+$ yarn start
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# The server will initialize in the <http://localhost:3000>
+
+
+📝 License
+This project is under license from MIT. For more details, see the LICENSE file.
